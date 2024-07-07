@@ -23,7 +23,7 @@ function displayPokemonDetails(pokemonData, speciesData, evolutionData) {
     const abilities = pokemonData.abilities.map(abilityInfo => abilityInfo.ability.name).join(', ');
     const stats = pokemonData.stats.map(stat => `
         <div class="stat">
-            <span>${stat.stat.name}:</span>
+            <span class="stat-name">${stat.stat.name}:</span>
             <div class="stat-bar">
                 <span style="width: ${stat.base_stat}%"></span>
             </div>

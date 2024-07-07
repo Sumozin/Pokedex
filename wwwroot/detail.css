@@ -38,9 +38,14 @@
 }
 
 .details-container .stat {
-    display: flex;
+    display: grid;
+    grid-template-columns: 120px 1fr 60px;
     justify-content: space-between;
     align-items: center;
+}
+
+.stat-name{
+    text-align: left;
 }
 
 .details-container .stat-bar {

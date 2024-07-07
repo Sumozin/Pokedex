@@ -49,7 +49,7 @@ function getColorByType(type) {
     case "dragon":
       return "gold";
     case "dark":
-      return "black";
+      return "gray";
     case "steel":
       return "lightgray";
     case "fairy":
