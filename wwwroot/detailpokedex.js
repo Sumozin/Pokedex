@@ -31,12 +31,7 @@ function displayPokemonDetails(pokemonData, speciesData, evolutionData) {
         </div>
     `).join('');
     const evolutions = getEvolutions(evolutionData.chain);
-    const eggGroups = speciesData.egg_groups.map(eggGroup => eggGroup.name).join(', ');
-    const flavorTextEntries = speciesData.flavor_text_entries
-        .filter(entry => entry.language.name === 'en')
-        .map(entry => entry.flavor_text)
-        .join(' ');
-
+    const moves = pokemonData.moves.map(moveInfo => `<li>${moveInfo.move.name}</li>`).join('');
     pokemonDetails.innerHTML = `
         <h2>${pokemonData.name}</h2>
         <img src="${pokemonData.sprites.front_default}" alt="${pokemonData.name}">
@@ -59,8 +54,8 @@ function displayPokemonDetails(pokemonData, speciesData, evolutionData) {
         ${stats}
         <h3>Evolutions</h3>
         <p>${evolutions}</p>
-        <h3>Egg Groups</h3>
-        <p>${eggGroups}</p>
+         <h3>Moves</h3>
+        <ul>${moves}</ul>
         
     `;
     
