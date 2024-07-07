@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <link rel="stylesheet" href="../wwwroot/style.css" />
+  </head>
+  <body>
+    <header id="header-pokedex">
+     <a href="#">
+      <img id="img-pokemon" src="../wwwroot/img/pokemon.png" alt="imagem logo pokemon" />
+    </a>
+    </header>
+    <main id="show-pokedex">
+      <div class="pokedex" id="pokedex"></div>
+      <div><button class="ButtonMore" onclick="loadMorePokemon()">Mostrar mais</button></div>
+    </main>
+
+    <div id="loading">
+      <p>Loading...</p>
+    </div>
+    
+    <footer>
+      <div class="footer-content">
+        <p>&copy; 2024 Pokédex by Pedro Ramos. All rights reserved.</p>
+        <p>Data provided by <a href="https://pokeapi.co/" target="_blank">PokeAPI</a></p>
+      </div>
+    </footer>
+
+    <script src="../wwwroot/pokedex.js"></script>
+  </body>
+</html>
