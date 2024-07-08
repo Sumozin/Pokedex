@@ -69,7 +69,7 @@ function displayPokemon(pokemonData) {
     const backgroundColorsecond = secondType ? getColorByType(secondType) : 'white'; // Default color if second type is undefined
 
     pokemonCard.innerHTML = `
-        <a href="detail.html?id=${pokemonData.id}">
+        <a href="view/detail.html?id=${pokemonData.id}">
             <div class="pokemon-card">
                 <img src="${pokemonData.sprites.front_default}" alt="${pokemonData.name}">
                 <p><strong>Id:</strong> ${pokemonData.id}</p>
