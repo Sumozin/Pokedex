@@ -11,7 +11,7 @@ async function fetchPokemonDetails() {
         const evolutionResponse = await fetch(speciesData.evolution_chain.url);
         const evolutionData = await evolutionResponse.json();
         
-        displayPokemonDetails(pokemonData, speciesData, evolutionData);
+        displayPokemonDetails(pokemonData, evolutionData);
     } catch (error) {
         console.error('Error fetching Pokémon details:', error);
     }

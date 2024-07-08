@@ -1,19 +1,78 @@
+async function getEvolutionDetails(pokemonName) {
+    const response = await fetch(`https://pokeapi.co/api/v2/pokemon/${pokemonName}`);
+    return await response.json();
+}
 
-function getEvolutions(chain) {
-    let evolutionText = '';
+function getColorByType(type) {
+    switch (type) {
+      case "fire":
+        return "orange";
+      case "water":
+        return "blue";
+      case "grass":
+        return "green";
+      case "electric":
+        return "yellow";
+      case "ice":
+        return "lightblue";
+      case "fighting":
+        return "brown";
+      case "poison":
+        return "purple";
+      case "ground":
+        return "sandybrown";
+      case "flying":
+        return "skyblue";
+      case "psychic":
+        return "pink";
+      case "bug":
+        return "limegreen";
+      case "rock":
+        return "gray";
+      case "ghost":
+        return "indigo";
+      case "dragon":
+        return "gold";
+      case "dark":
+        return "gray";
+      case "steel":
+        return "lightgray";
+      case "fairy":
+        return "lightpink";
+      default:
+        return "white";
+    }
+  }
+
+async function getEvolutions(chain) {
     let currentChain = chain;
+    const evolutionDetails = [];
 
     while (currentChain) {
-        evolutionText += currentChain.species.name;
+        const evolutionDetail = {
+            name: currentChain.species.name,
+            imageUrl: '',
+            minLevel: null
+        };
+
         if (currentChain.evolves_to.length > 0) {
-            evolutionText += ' -> ';
+            const evolutionMethod = currentChain.evolves_to[0].evolution_details[0];
+            evolutionDetail.minLevel = evolutionMethod.min_level ?? 'N/A';
+        }
+
+        const pokemonDetails = await getEvolutionDetails(currentChain.species.name);
+        evolutionDetail.imageUrl = pokemonDetails.sprites.front_default;
+
+        evolutionDetails.push(evolutionDetail);
+
+        if (currentChain.evolves_to.length > 0) {
             currentChain = currentChain.evolves_to[0];
         } else {
             currentChain = null;
         }
     }
 
-    return evolutionText;
+    return evolutionDetails;
 }
 
 async function displayPokemonDetails(pokemonData, evolutionData) {
@@ -25,10 +84,12 @@ async function displayPokemonDetails(pokemonData, evolutionData) {
 
     const levelUpMovesPromises = levelUpMoves.map(async moveInfo => {
         const moveDetails = await fetchMoveDetails(moveInfo.move.url);
+        const typemove = moveDetails.type.name;
+        const colortype = getColorByType(typemove);
         return `
             <tr>
                 <th>${moveDetails.name}</th>
-                <td>${moveDetails.type.name}</td>
+                <td  style="background-color: ${colortype};">${moveDetails.type.name}</td>
                 <td>${moveDetails.power ?? 'N/A'}</td>
                 <td>${moveDetails.accuracy ?? 'N/A'}</td>
                 <td>${moveDetails.pp}</td>
@@ -36,15 +97,19 @@ async function displayPokemonDetails(pokemonData, evolutionData) {
         `;
     });
 
+
     const tmMovesPromises = tmMoves.map(async moveInfo => {
         const moveDetails = await fetchMoveDetails(moveInfo.move.url);
+        const typemove = moveDetails.type.name;
+        const colortype = getColorByType(typemove);
         return `
             <tr>
                 <th>${moveDetails.name}</th>
-                <td>${moveDetails.type.name}</td>
+                <td  style="background-color: ${colortype};">${moveDetails.type.name}</td>
                 <td>${moveDetails.power ?? 'N/A'}</td>
                 <td>${moveDetails.accuracy ?? 'N/A'}</td>
                 <td>${moveDetails.pp}</td>
+                
             </tr>
         `;
     });
@@ -53,7 +118,11 @@ async function displayPokemonDetails(pokemonData, evolutionData) {
     const tmMovesHTML = await Promise.all(tmMovesPromises);
 
     // tipos do pokemon
-    const pokemonTypes = pokemonData.types.map(typeInfo => typeInfo.type.name).join(', ');
+    const pokemonTypes = pokemonData.types.map(typeInfo => typeInfo.type.name);
+    const primaryType = pokemonTypes[0];
+    const secondType = pokemonTypes[1];
+    const backgroundColor = getColorByType(primaryType);
+    const backgroundColorsecond = secondType ? getColorByType(secondType) : 'white'; // Default color if second type is undefined
 
     // habilidade do pokemon
     const abilities = pokemonData.abilities.map(abilityInfo => abilityInfo.ability.name).join(', ');
@@ -70,15 +139,24 @@ async function displayPokemonDetails(pokemonData, evolutionData) {
     `).join('');
 
     // evoluçao
-    const evolutions = getEvolutions(evolutionData.chain);
+    const evolutions = await getEvolutions(evolutionData.chain);
 
+    const evolutionHTML = evolutions.map(evo => `
+        <div class="evolution">
+            <img src="${evo.imageUrl}" alt="${evo.name}">
+            <p>${evo.name} ${evo.minLevel ? ` (Level ${evo.minLevel})` : ''}</p>
+        </div>
+    `).join('');
    
 
     pokemonDetails.innerHTML = `
         <h2>${pokemonData.name}</h2>
         <img src="${pokemonData.sprites.front_default}" alt="${pokemonData.name}">
         <p><strong>ID:</strong> ${pokemonData.id}</p>
-        <p><strong>Type:</strong> ${pokemonTypes}</p>
+        <strong>Type:</strong>
+        <div style="background-color: ${backgroundColor};"> ${primaryType}</div>
+        <div style="background-color: ${backgroundColorsecond};"> ${secondType}</div>
+
         <p><strong>Height:</strong> ${pokemonData.height}</p>
         <p><strong>Weight:</strong> ${pokemonData.weight}</p>
         <p><strong>Base Experience:</strong> ${pokemonData.base_experience}</p>
@@ -95,7 +173,9 @@ async function displayPokemonDetails(pokemonData, evolutionData) {
         <h3>Base Stats</h3>
         ${stats}
         <h3>Evolutions</h3>
-        <p>${evolutions}</p>
+        <div class="div-evolution">
+            ${evolutionHTML}
+        </div>
         <h3>Moves Learned by Level-Up</h3>
         <table>
             <thead>
@@ -105,6 +185,7 @@ async function displayPokemonDetails(pokemonData, evolutionData) {
                     <th scope="col">Power</th>
                     <th scope="col">Accuracy</th>
                     <th scope="col">PP</th>
+                   
                 </tr>
             </thead>
             <tbody>${levelUpMovesHTML.join('')}</tbody>
@@ -118,6 +199,7 @@ async function displayPokemonDetails(pokemonData, evolutionData) {
                     <th scope="col">Power</th>
                     <th scope="col">Accuracy</th>
                     <th scope="col">PP</th>
+                    
                 </tr>
             </thead>
             <tbody>${tmMovesHTML.join('')}</tbody>

@@ -43,6 +43,19 @@ header {
   margin: 10px 0;
 }
 
+.div-evolution{
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+}
+.div-evolution img {
+    width: 150px;
+    height: 150px;
+}
+
+.div-evolution p{
+    text-align: center;
+}
+
 .details-container table {
     width: 100%;
     border-collapse: collapse;
