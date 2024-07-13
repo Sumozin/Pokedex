@@ -1,3 +1,4 @@
+
 async function getEvolutionDetails(pokemonName) {
   const response = await fetch(`https://pokeapi.co/api/v2/pokemon/${pokemonName}`);
   return await response.json();

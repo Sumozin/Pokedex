@@ -12,7 +12,7 @@ async function fetchPokemon(offset, limit) {
     const pokemonDataArray = await Promise.all(pokemonPromises);
     pokemonDataArray.sort((a, b) => a.id - b.id); // Ensure the order
     pokemonDataArray.forEach((pokemonData) => displayPokemon(pokemonData));
-    showContent()
+    showContent();
   } catch (error) {
     console.error("Error fetching Pokémon:", error);
   }
@@ -60,35 +60,48 @@ function getColorByType(type) {
 }
 
 function displayPokemon(pokemonData) {
-    const pokedex = document.getElementById('pokedex');
-    const pokemonCard = document.createElement('div');
-    const pokemonTypes = pokemonData.types.map((typeInfo) => typeInfo.type.name);
-    const primaryType = pokemonTypes[0];
-    const secondType = pokemonTypes[1];
-    const backgroundColor = getColorByType(primaryType);
-    const backgroundColorsecond = secondType ? getColorByType(secondType) : 'white'; // Default color if second type is undefined
+  const pokedex = document.getElementById('pokedex');
+  const pokemonCard = document.createElement('div');
+  const pokemonTypes = pokemonData.types.map((typeInfo) => typeInfo.type.name);
+  const primaryType = pokemonTypes[0];
+  const secondType = pokemonTypes[1];
+  const backgroundColor = getColorByType(primaryType);
+  const backgroundColorsecond = secondType ? getColorByType(secondType) : 'white'; // Default color if second type is undefined
 
-const classtype = pokemonTypes.length === 1 ? 'singletype' : 'twotype';
+  const classtype = pokemonTypes.length === 1 ? 'singletype' : 'twotype';
 
-    pokemonCard.innerHTML = `
-        <a href="view/detail.html?id=${pokemonData.id}">
-            <div class="pokemon-card">
-                <img src="${pokemonData.sprites.front_default}" alt="${pokemonData.name}">
-                <p><strong>Id:</strong> ${pokemonData.id}</p>
-                <h3>${pokemonData.name}</h3>
-                <div class="pokemon-type ${classtype} ">
-                    <div class="pokemon-div-type" style="background-color: ${backgroundColor};">${primaryType}</div>
-                    ${secondType ? `<div class="pokemon-div-type" style="background-color: ${backgroundColorsecond};">${secondType}</div>` : ''}
-                </div>
-            </div>
-        </a>
-    `;
-    pokedex.appendChild(pokemonCard);
+  pokemonCard.innerHTML = `
+    <a href="view/detail.html?id=${pokemonData.id}">
+      <div class="pokemon-card">
+        <img src="${pokemonData.sprites.front_default}" alt="${pokemonData.name}">
+        <p><strong>Id:</strong> ${pokemonData.id}</p>
+        <h3>${pokemonData.name}</h3>
+        <div class="pokemon-type ${classtype}">
+          <div class="pokemon-div-type" style="background-color: ${backgroundColor};">${primaryType}</div>
+          ${secondType ? `<div class="pokemon-div-type" style="background-color: ${backgroundColorsecond};">${secondType}</div>` : ''}
+        </div>
+      </div>
+    </a>
+  `;
+  pokedex.appendChild(pokemonCard);
 }
 
 function showContent() {
   document.getElementById('loading').style.display = 'none';
   document.getElementById('show-pokedex').style.display = 'block';
+}
+
+async function searchPokemonById() {
+  const searchInput = document.getElementById('search-input').value;
+  const url = `https://pokeapi.co/api/v2/pokemon/${searchInput}`;
+  try {
+    const response = await fetch(url);
+    const pokemonData = await response.json();
+    document.getElementById('pokedex').innerHTML = ''; // Clear existing content
+    displayPokemon(pokemonData);
+  } catch (error) {
+    console.error("Error fetching Pokémon by ID:", error);
+  }
 }
 
 function loadMorePokemon() {
