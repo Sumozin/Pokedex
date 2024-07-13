@@ -45,8 +45,18 @@ header {
 
 .div-evolution{
     display: grid;
-    grid-template-columns: 1fr 1fr 1fr;
+    justify-content: center; 
+    align-content: center;
 }
+
+.single {
+  display: block; /* Se houver apenas um elemento, exibe como bloco */
+}
+
+.multiple {
+  grid-template-columns: repeat(3, 1fr);
+}
+
 .div-evolution img {
     width: 150px;
     height: 150px;
