@@ -132,7 +132,14 @@ async function displayPokemonDetails(pokemonData, evolutionData) {
     </div>
   `).join('');
 
-  const evolutionContainerClass = evolutions.length === 1 ? 'single' : 'multiple';
+  let evolutionContainerClass = '';
+  if (evolutions.length === 1) {
+    evolutionContainerClass = 'single';
+  } else if (evolutions.length === 2) {
+    evolutionContainerClass = 'two';
+  } else if (evolutions.length === 3) {
+    evolutionContainerClass = 'three';
+  }
 
   pokemonDetails.innerHTML = `
     <h2>${pokemonData.name}</h2>
