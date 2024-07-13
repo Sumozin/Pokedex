@@ -94,6 +94,9 @@ function showContent() {
 async function searchPokemonById() {
   const searchInput = document.getElementById('search-input').value;
   const url = `https://pokeapi.co/api/v2/pokemon/${searchInput}`;
+
+  const buttonMore = document.getElementById('idButtonMore');
+    buttonMore.style.display = 'none';
   try {
     const response = await fetch(url);
     const pokemonData = await response.json();
@@ -107,7 +110,15 @@ async function searchPokemonById() {
 function loadMorePokemon() {
   fetchPokemon(offset, limit);
   offset += limit;
+ 
 }
+
+// Event listener for Enter key in the search input
+document.getElementById('search-input').addEventListener('keydown', function(event) {
+  if (event.key === 'Enter') {
+    searchPokemonById();
+  }
+});
 
 // Initial load
 loadMorePokemon();

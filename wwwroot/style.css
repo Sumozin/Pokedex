@@ -22,6 +22,15 @@ a {
   position: relative;
 }
 
+.search-pokemon{
+  display: grid;
+  width: 80%;
+  margin: 20px auto 0px ;
+  height: 25px;
+  gap: 5px;
+  grid-template-columns: 90% 10%;
+}
+
 .pokedex {
   display: flex;
   flex-wrap: wrap;

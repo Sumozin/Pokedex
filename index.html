@@ -12,12 +12,15 @@
      <a href="#">
       <img id="img-pokemon" src="wwwroot/img/pokemon.png" alt="imagem logo pokemon" />
     </a>
-    <input type="text" id="search-input" placeholder="Search by ID" />
+    <div class="search-pokemon">
+      <input type="text" id="search-input" placeholder="Procure seu pokemon" />
       <button onclick="searchPokemonById()">Search</button>
+    </div>
     </header>
     <main id="show-pokedex">
       <div class="pokedex" id="pokedex"></div>
-      <div><button class="ButtonMore" onclick="loadMorePokemon()">Mostrar mais</button></div>
+
+      <div><button class="ButtonMore" id="idButtonMore" onclick="loadMorePokemon()">Mostrar mais</button></div>
     </main>
 
     <div id="loading">
