@@ -38,15 +38,53 @@ header {
   text-transform: capitalize;
 }
 
-.details-container p {
-  text-align: left;
-  margin: 10px 0;
+.id-text {
+  color: #616161;
+  margin-left: 10px; /* Adiciona um espaço entre o nome e o ID */
+  font-size: 0.8em; /* Ajusta o tamanho da fonte */
 }
 
-.div-evolution{
-    display: grid;
-    justify-content: center; 
-    align-content: center;
+.infoPrincipal {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+}
+
+.infoSegundaria {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  grid-auto-rows: 55px 45px;
+  justify-content: center;
+  align-content: center;
+  
+  height: 70%;
+  border: 1px solid rgb(0 0 0 / 50%);
+  border-radius: 10px;
+  background-color: #c0c0c0;
+  position: relative;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+.pInfoSegudaria {
+  text-align: left;
+  padding-left: 21px;
+}
+.pokemon-div-type {
+  margin: 3px;
+  text-align: center;
+  width: 32%;
+  padding: 5px;
+  border-radius: 5px;
+}
+
+.divType {
+  display: flex;
+}
+
+.div-evolution {
+  display: grid;
+  justify-content: center;
+  align-content: center;
 }
 
 .single {
@@ -62,28 +100,29 @@ header {
 }
 
 .div-evolution img {
-    width: 150px;
-    height: 150px;
+  width: 150px;
+  height: 150px;
 }
 
-.div-evolution p{
-    text-align: center;
+.div-evolution p {
+  text-align: center;
 }
 
 .details-container table {
-    width: 100%;
-    border-collapse: collapse;
-    margin: 20px 0;
+  width: 100%;
+  border-collapse: collapse;
+  margin: 20px 0;
 }
 
-.details-container th, .details-container td {
-    border: 1px solid #ddd;
-    padding: 8px;
-    text-align: center;
+.details-container th,
+.details-container td {
+  border: 1px solid #ddd;
+  padding: 8px;
+  text-align: center;
 }
 
 .details-container th {
-    background-color: #f2f2f2;
+  background-color: #f2f2f2;
 }
 
 .details-container .stat {

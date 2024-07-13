@@ -63,6 +63,14 @@ a {
   gap: 6px;
 }
 
+.singletype{
+  grid-template-columns: 1fr;
+}
+
+.twotype{
+  grid-template-columns: 1fr 1fr;
+}
+
 .pokemon-div-type {
   color: black;
   border-radius: 5px;

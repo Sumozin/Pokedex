@@ -142,17 +142,26 @@ async function displayPokemonDetails(pokemonData, evolutionData) {
   }
 
   pokemonDetails.innerHTML = `
-    <h2>${pokemonData.name}</h2>
-    <img src="${pokemonData.sprites.front_default}" alt="${pokemonData.name}">
-    <p><strong>ID:</strong> ${pokemonData.id}</p>
-    <strong>Type:</strong>
-    <div style="background-color: ${backgroundColor};"> ${primaryType}</div>
-    ${secondType ? `<div class="pokemon-div-type" style="background-color: ${backgroundColorsecond};">${secondType}</div>` : ''}
-    <p><strong>Height:</strong> ${pokemonData.height}</p>
-    <p><strong>Weight:</strong> ${pokemonData.weight}</p>
-    <p><strong>Base Experience:</strong> ${pokemonData.base_experience}</p>
-    <p><strong>Abilities:</strong> ${abilities}</p>
-    <h3>Sprites</h3>
+   <div class="infoPrincipal">
+      <div>
+        <h2>${pokemonData.name}<span class="id-text">ID:${pokemonData.id}</span></h2>
+        <img src="${pokemonData.sprites.front_default}" alt="${pokemonData.name}">
+      </div>
+      <div class="infoSegundaria">
+        <p class="pInfoSegudaria"><strong>Height</strong> <br> ${pokemonData.height}</p>
+        <p class="pInfoSegudaria"><strong>Weight</strong> <br> ${pokemonData.weight}</p>
+        <p class="pInfoSegudaria"><strong>Base Experience</strong> <br> ${pokemonData.base_experience}</p>
+        <p class="pInfoSegudaria"><strong>Abilities</strong> <br> ${abilities}</p>
+      </div>
+    </div>
+     <div style="text-align:left;">
+        <strong>Type:</strong>
+          <div class="divType">
+            <div class="pokemon-div-type" style="background-color: ${backgroundColor};"> ${primaryType}</div>
+            ${secondType ? `<div class="pokemon-div-type" style="background-color: ${backgroundColorsecond};">${secondType}</div>` : ''}
+          </div>      
+      </div>
+    <h3>Angulos</h3>
     <img src="${pokemonData.sprites.front_default}" alt="Front Default">
     <img src="${pokemonData.sprites.back_default}" alt="Back Default">
     <img src="${pokemonData.sprites.front_shiny}" alt="Front Shiny">
