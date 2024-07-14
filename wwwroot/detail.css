@@ -183,3 +183,35 @@ footer {
   margin: 10px;
   background: none;
 }
+
+.table-container {
+  width: 100%;
+  overflow-x: auto;
+}
+
+table {
+  width: 100%;
+  min-width: 450px; /* Largura mínima da tabela para habilitar a rolagem horizontal */
+  border-collapse: collapse;
+}
+
+
+@media (max-width: 510px) {
+
+  .infoPrincipal {
+    grid-template-columns: repeat(1, 1fr);
+  }
+
+  .infoSegundaria {
+    
+    height: 100%;
+    padding-bottom: 20px;
+  
+  }
+
+  .div-evolution img {
+    width: 100px;
+    height: 100px;
+}
+
+}

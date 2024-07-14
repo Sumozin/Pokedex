@@ -156,7 +156,7 @@ async function displayPokemonDetails(pokemonData, evolutionData) {
       </div>
     </div>
      <div style="text-align:left;">
-        <strong>Type:</strong>
+        <strong>Type</strong>
           <div class="divType">
             <div class="pokemon-div-type" style="background-color: ${backgroundColor};"> ${primaryType}</div>
             ${secondType ? `<div class="pokemon-div-type" style="background-color: ${backgroundColorsecond};">${secondType}</div>` : ''}
@@ -176,31 +176,35 @@ async function displayPokemonDetails(pokemonData, evolutionData) {
     <h3>Evolutions</h3>
     <div class="div-evolution ${evolutionContainerClass}" id="evolution-container">${evolutionHTML}</div>
     <h3>Moves Learned by Level-Up</h3>
-    <table>
-      <thead>
-        <tr>
-          <th scope="col">Move</th>
-          <th scope="col">Type</th>
-          <th scope="col">Power</th>
-          <th scope="col">Accuracy</th>
-          <th scope="col">PP</th>
-        </tr>
-      </thead>
-      <tbody>${levelUpMovesHTML.join('')}</tbody>
-    </table>
+    <div class="table-container">
+      <table>
+        <thead>
+         <tr>
+            <th scope="col">Move</th>
+            <th scope="col">Type</th>
+            <th scope="col">Power</th>
+            <th scope="col">Accuracy</th>
+            <th scope="col">PP</th>
+          </tr>
+        </thead>
+        <tbody>${levelUpMovesHTML.join('')}</tbody>
+      </table>
+    </div>
     <h3>Moves Learned by TM</h3>
-    <table>
-      <thead>
-        <tr>
-          <th scope="col">Move</th>
-          <th scope="col">Type</th>
-          <th scope="col">Power</th>
-          <th scope="col">Accuracy</th>
-          <th scope="col">PP</th>
-        </tr>
-      </thead>
-      <tbody>${tmMovesHTML.join('')}</tbody>
-    </table>
+    <div class="table-container"> 
+      <table>
+        <thead>
+          <tr>
+            <th scope="col">Move</th>
+            <th scope="col">Type</th>
+            <th scope="col">Power</th>
+            <th scope="col">Accuracy</th>
+            <th scope="col">PP</th>
+          </tr>
+        </thead>
+        <tbody>${tmMovesHTML.join('')}</tbody>
+      </table>
+    </div> 
   `;
 
   // Hide loading and show details
